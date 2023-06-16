@@ -8,9 +8,6 @@ RUN chmod +x /usr/local/bin/dumb-init
 WORKDIR /build/bin/
 WORKDIR /build
 
-# Copy and download dependency using go mod.
-# COPY go.mod go.sum ./
-# RUN go mod download
 COPY go.mod ./
 
 # Copy the code into the container.
@@ -20,9 +17,6 @@ RUN make build
 
 FROM scratch
 
-WORKDIR /tmp
-
-WORKDIR /config
 WORKDIR /
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
