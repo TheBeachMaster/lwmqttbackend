@@ -32,30 +32,6 @@ func newHTTPServer(mux *http.ServeMux, port string) *http.Server {
 }
 
 func (s *Server) Run() error {
-	// go func() {
-	// 	log.Printf("Server is listening on port %s", s.port)
-
-	// 	if err := s.server.ListenAndServe(); err != nil {
-	// 		log.Panicf("Failed to start server due to %v", err)
-	// 	}
-	// }()
-	// quitServer := make(chan struct{})
-
-	// err := s.MapHTTPHandlers()
-	// if err != nil {
-	// 	return err
-	// }
-
-	// sig := make(chan os.Signal, 1)
-	// signal.Notify(sig, os.Interrupt)
-	// <-sig
-
-	// close(quitServer)
-
-	// <-quitServer
-
-	// log.Printf("Server shutdown")
-	// return s.server.Shutdown(context.Background())
 
 	idleConnsClosed := make(chan struct{})
 	go func() {
