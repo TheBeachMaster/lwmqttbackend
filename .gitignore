@@ -19,3 +19,9 @@
 
 # Go workspace file
 go.work
+
+# Build Dir
+bin 
+
+# Created by Air
+tmp
