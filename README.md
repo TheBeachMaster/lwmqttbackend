@@ -31,4 +31,4 @@ Now you can configure your Auth rules as needed:
 
 # Disclaimer
 - Make sure you are familiar with the License to which this software is distributed under
-- Maybe do'nt run this in production, it's for troubleshooting only.
+- Maybe don't run this in production, it's for troubleshooting only.
