@@ -3,12 +3,10 @@ package auth
 import (
 	"context"
 
-	"com.thebeachmaster/mqttbackend/internal/auth/models"
+	models "com.thebeachmaster/mqttbackend/internal/models/auth"
 )
 
-type AuthRepository interface {
-	Sink(ctx context.Context, messageData *models.MQTTMessage) error
+type MQTTAuthRepository interface {
 	Authn(ctx context.Context, authnData *models.AuthenticateDeviceInfo) error
 	Authz(ctx context.Context, authzData *models.AuthorizationHTTPRequestInfo) error
-	Default(ctx context.Context) error
 }

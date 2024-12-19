@@ -1,16 +1,4 @@
-package models
-
-type AuthenticateDeviceInfo struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-type AuthorizationHTTPRequestInfo struct {
-	Username string `json:"username"`
-	Topic    string `json:"topic"`
-	Action   string `json:"action"`
-	DeviceId string `json:"clientid"`
-}
+package data
 
 type MQTTMessage struct {
 	Topic             string `json:"topic"`
@@ -25,15 +13,6 @@ type MQTTMessage struct {
 	PublishReceivedAt int64  `json:"publish_received_at"`
 	BrokerNodeName    string `json:"node"`
 	PublishFlags      string `json:"flags,omitempty"`
-}
-
-type AuthNResponse struct {
-	Result      string `json:"result"`
-	IsSuperUser bool   `json:"is_superuser"`
-}
-
-type AuthZResponse struct {
-	Result string `json:"result"`
 }
 
 type HealthStatus struct {

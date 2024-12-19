@@ -1,24 +1,17 @@
-package repository
+package auth
 
 import (
 	"context"
 	"log"
 
-	"com.thebeachmaster/mqttbackend/internal/auth"
-	"com.thebeachmaster/mqttbackend/internal/auth/models"
+	models "com.thebeachmaster/mqttbackend/internal/models/auth"
 )
 
 type authRepository struct {
 }
 
-func NewAuthRepository() auth.AuthRepository {
+func NewAuthRepository() MQTTAuthRepository {
 	return &authRepository{}
-}
-
-func (a *authRepository) Sink(ctx context.Context, messageData *models.MQTTMessage) error {
-	log.Printf("Storing...\n%+v", messageData)
-
-	return nil
 }
 
 func (a *authRepository) Authn(ctx context.Context, authnData *models.AuthenticateDeviceInfo) error {
@@ -29,12 +22,6 @@ func (a *authRepository) Authn(ctx context.Context, authnData *models.Authentica
 
 func (a *authRepository) Authz(ctx context.Context, authzData *models.AuthorizationHTTPRequestInfo) error {
 	log.Printf("Authorizing...\n%+v", authzData)
-
-	return nil
-}
-
-func (a *authRepository) Default(ctx context.Context) error {
-	log.Printf("Default Data")
 
 	return nil
 }

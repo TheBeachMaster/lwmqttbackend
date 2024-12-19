@@ -3,9 +3,10 @@ package server
 import (
 	"net/http"
 
-	"com.thebeachmaster/mqttbackend/internal/auth/handler"
-	"com.thebeachmaster/mqttbackend/internal/auth/repository"
-	"com.thebeachmaster/mqttbackend/internal/auth/usecase"
+	authHandler "com.thebeachmaster/mqttbackend/internal/handlers/auth"
+	dataHandler "com.thebeachmaster/mqttbackend/internal/handlers/data"
+	authRepo "com.thebeachmaster/mqttbackend/internal/repositories/auth"
+	dataRepo "com.thebeachmaster/mqttbackend/internal/repositories/data"
 )
 
 func (s *Server) MapHTTPHandlers() error {
@@ -17,9 +18,11 @@ func (s *Server) MapHTTPHandlers() error {
 
 func (s *Server) MapRoutes(w http.ResponseWriter, r *http.Request) {
 
-	repos := repository.NewAuthRepository()
-	_usecase := usecase.NewMQTTAuthUsecase(repos)
-	_handler := handler.NewAuthHTTPHandler(_usecase)
+	_authRepo := authRepo.NewAuthRepository()
+	_dataRepo := dataRepo.NewDataRepository()
+
+	_authHandler := authHandler.NewAuthHTTPHandler(_authRepo)
+	_dataHandler := dataHandler.NewMQTTDataHandler(_dataRepo)
 
 	var h http.Handler
 
@@ -27,15 +30,15 @@ func (s *Server) MapRoutes(w http.ResponseWriter, r *http.Request) {
 
 	switch path {
 	case "/":
-		h = _handler.Default()
+		h = _dataHandler.Default()
 	case "/authn":
-		h = _handler.Authn()
+		h = _authHandler.Authn()
 	case "/authz":
-		h = _handler.Authz()
+		h = _authHandler.Authz()
 	case "/sink":
-		h = _handler.Store()
+		h = _dataHandler.Store()
 	default:
-		h = _handler.Default()
+		h = _dataHandler.Default()
 	}
 
 	h.ServeHTTP(w, r)

@@ -2,17 +2,14 @@
 
 APP_NAME = mqttbackend
 BUILD_DIR = $(PWD)/bin
+OS = $(shell go env GOOS)
+ARCH = $(shell go env GOARCH)
+
+build:
+	CGO_ENABLED=1 GOOS=$(OS) GOARCH=$(ARCH) go build --race -ldflags="-w -s" -o $(BUILD_DIR)/$(APP_NAME) main.go
+
 clean:
 	rm -rf $(BUILD_DIR)
 
-build: 
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o $(BUILD_DIR)/$(APP_NAME) main.go
-
-build-mac: 
-	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="-w -s" -o $(BUILD_DIR)/$(APP_NAME) main.go
-
-build-mx_mac: 
-	CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -ldflags="-w -s" -o $(BUILD_DIR)/$(APP_NAME) main.go
-
-run: 
+run:
 	$(BUILD_DIR)/$(APP_NAME)
